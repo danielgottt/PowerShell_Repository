@@ -122,33 +122,33 @@ $ReadmeText = @"
 ###############################################################################
 
 # Computer System 
-echo "----------Computer Enumeration----------" > .\Computer_System.txt
+echo "Computer Enumeration" > .\Computer_System.txt
 Get-CimInstance -ClassName Win32_ComputerSystem >> Computer_System.txt
 
 
 # BIOS
-echo "----------BIOS Version----------" >> .\Computer_System.txt
+echo "BIOS Version" >> .\Computer_System.txt
 Get-CimInstance -ClassName Win32_BIOS >> Computer_System.txt
 
 
 # Environment Variables
-echo "----------Environment Variables----------" >> .\Computer_System.txt
+echo "Environment Variables" >> .\Computer_System.txt
 dir env:\ >> Computer_System.txt
 
 
 # Users (Identifies Local Users on a machine)
-echo "----------Local Account Information----------" > Account_Information.txt
+echo "Local Account Information" > Account_Information.txt
 Get-LocalUser –name * | Select Name, Enabled, SID, LastLogon, PasswordLastSet >> Account_Information.txt
 
 
 
 # Groups
-echo "----------Current Local Groups----------" >> Account_Information.txt   
+echo "Current Local Groups" >> Account_Information.txt   
 Get-CimInstance -ClassName Win32_Group >> Account_Information.txt
 
 
 # Group Members
-echo "----------Memebers assigned to Groups----------" >> Account_Information.txt
+echo "Memebers assigned to Groups" >> Account_Information.txt
 Get-CimInstance -ClassName Win32_GroupUser >> Account_Information.txt
 
 
@@ -165,36 +165,36 @@ secedit.exe /export /cfg SecEdit-Security-Policy.txt | out-null
 
 
 # Shared Folders
-echo "----------SMB_Share_List----------"
+echo "SMB_Share_List"
 Get-SmbShare > SMB_Shares.txt
 
 
 # Networking Configuration
-echo "----------Network Adapters----------" > Network_Information.txt
+echo "Network Adapters" > Network_Information.txt
 Get-NetAdapter -IncludeHidden >> Network_Information.txt
-echo "----------Network IP Address----------" >> Network_Information.txt
+echo "Network IP Address" >> Network_Information.txt
 Get-NetIPAddress >> Network_Information.txt
-echo "----------Local TCP Listening Ports----------" >> Network_Information.txt
+echo "Local TCP Listening Ports" >> Network_Information.txt
 Get-NetTCPConnection -State Listen | Sort LocalPort >> Network_Information.txt
-echo "----------Local UDP Listening Ports----------" >> Network_Information.txt
+echo "Local UDP Listening Ports" >> Network_Information.txt
 Get-NetUDPEndpoint | Sort LocalPort >> Network_Information.txt
-echo "----------Network Routing Table----------" >> Network_Information.txt
+echo "Network Routing Table" >> Network_Information.txt
 Get-NetRoute >> Network_Information.txt
-echo "----------Netstat List----------" >> Network_Information.txt
+echo "Netstat List" >> Network_Information.txt
 netstat.exe -n  >> Network_Information.txt
-echo "----------Local Windows Socket Information----------" >> Network_Information.txt
+echo "Local Windows Socket Information" >> Network_Information.txt
 netsh.exe winsock show catalog >> Network_Information.txt
-echo "----------DNS Information----------" >> Network_Information.txt
+echo "DNS Information" >> Network_Information.txt
 Get-DnsClientNrptPolicy -Effective >> Network_Information.txt
 
 
 # Windows Firewall and IPSec 
-echo "----------Firewall Profiles----------" > Firewall_Settings.txt
+echo "Firewall Profiles" > Firewall_Settings.txt
 Get-NetConnectionProfile >> Firewall_Settings.txt
 Get-NetFirewallProfile >> Firewall_Settings.txt
-echo "----------Firewall Rules----------" >> Firewall_Settings.txt
+echo "Firewall Rules" >> Firewall_Settings.txt
 Get-NetFirewallRule >> Firewall_Settings.txt
-echo "----------IPSEC Rules----------" >> Firewall_Settings.txt
+echo "IPSEC Rules" >> Firewall_Settings.txt
 Get-NetIPsecRule >> Firewall_Settings.txt
 # echo "Firewall Advanced Export of Hive Keys"
 # netsh.exe advfirewall export Network-Firewall-Export.wfw | out-null 
@@ -217,36 +217,36 @@ Get-Service | Sort-Object Status | Format-List -Property Status, Name, DisplayNa
 
 
 # Registry Exports (add more as you wish)
-echo "----------HKLM:\SYSTEM\CurrentControlSet\Enum\USBSTOR\*\*----------" >> Registry_Baseline.txt
+echo "HKLM:\SYSTEM\CurrentControlSet\Enum\USBSTOR\*\*" >> Registry_Baseline.txt
 Get-ItemProperty HKLM:\SYSTEM\CurrentControlSet\Enum\USBSTOR\*\* | Format-Table –Property FriendlyName, ContainerID  >> Registry_Baseline.txt
 echo "Programs that Start on boot or login"
-echo "----------HKLM:\Software\Microsoft\Windows\CurrentVersion\Run\----------" >> Registry_Baseline.txt
+echo "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run\" >> Registry_Baseline.txt
 Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Run\  >> Registry_Baseline.txt
-echo "----------HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce\----------" >> Registry_Baseline.txt
+echo "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce\" >> Registry_Baseline.txt
 Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce\  >> Registry_Baseline.txt
-echo "----------HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce\----------" >> Registry_Baseline.txt
+echo "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce\" >> Registry_Baseline.txt
 Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce\  >> Registry_Baseline.txt 
-echo "----------HKCU:\Software\Microsoft\Windows\CurrentVersion\Run\----------" >> Registry_Baseline.txt
+echo "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run\" >> Registry_Baseline.txt
 Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\Run\  >> Registry_Baseline.txt
-# SEPERATOR
+
 echo "HKEY's used for Persistence" > Persistence_Reg_Baseline.txt
-echo "----------HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\----------" >> Persistence_Reg_Baseline.txt
+echo "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\" >> Persistence_Reg_Baseline.txt
 Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders\' >> Persistence_Reg_Baseline.txt
-echo "----------HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\----------" >> Persistence_Reg_Baseline.txt
+echo "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\" >> Persistence_Reg_Baseline.txt
 Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders\' >> Persistence_Reg_Baseline.txt
-echo "----------HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders----------" >> Persistence_Reg_Baseline.txt
+echo "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders" >> Persistence_Reg_Baseline.txt
 Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders'>> Persistence_Reg_Baseline.txt
-echo "----------HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders----------" >> Persistence_Reg_Baseline.txt
+echo "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" >> Persistence_Reg_Baseline.txt
 Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders' >> Persistence_Reg_Baseline.txt
-# SEPERATOR
+
 echo "HKEY's that control Services on boot" > Service_Control_HKEY_Baseline.txt
-echo "----------HKLM:\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce\----------" >> Service_Control_HKEY_Baseline.txt
+echo "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce\" >> Service_Control_HKEY_Baseline.txt
 Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce\ -ErrorAction SilentlyContinue >> Service_Control_HKEY_Baseline.txt 
-echo "----------HKCU:\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce\----------" >> Service_Control_HKEY_Baseline.txt
+echo "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce\" >> Service_Control_HKEY_Baseline.txt
 Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce\ -ErrorAction SilentlyContinue  >> Service_Control_HKEY_Baseline.txt
-echo "----------HKLM:\Software\Microsoft\Windows\CurrentVersion\RunServices\----------" >> Service_Control_HKEY_Baseline.txt
+echo "HKLM:\Software\Microsoft\Windows\CurrentVersion\RunServices\" >> Service_Control_HKEY_Baseline.txt
 Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\RunServices\  -ErrorAction SilentlyContinue >> Service_Control_HKEY_Baseline.txt
-echo "----------HKCU:\Software\Microsoft\Windows\CurrentVersion\RunServices\----------" >> Service_Control_HKEY_Baseline.txt
+echo "HKCU:\Software\Microsoft\Windows\CurrentVersion\RunServices\" >> Service_Control_HKEY_Baseline.txt
 Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\RunServices\ -ErrorAction SilentlyContinue  >> Service_Control_HKEY_Baseline.txt
 
 # Generate an MSINFO32.EXE report, which includes lots of misc info.
