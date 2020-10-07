@@ -3,7 +3,6 @@
     Draft script for use during host baseline, specifically win10 machines.
     
     Created by: Daniel J. Gott
-    Referenced: SANS SEC505 Baseline Script
 
 .DESCRIPTION
     
