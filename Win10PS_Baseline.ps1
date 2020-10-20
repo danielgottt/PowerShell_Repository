@@ -2,7 +2,7 @@
 .SYNOPSIS
     Draft script for use during host baseline, specifically win10 machines.
     
-    Created by: Daniel J. Gott
+    Created by: 01000111
 
 .DESCRIPTION
     
