@@ -3,7 +3,7 @@
 
   Script referenced in "Offline ELK stack for Air Gapped Windows Logs" Crew Aid
   
-    Created by: Daniel J. Gott
+    Created by: 01000111
 .DESCRIPTION
       Manually upload airgapped Windows logs into your own ELK stack. The file path you designate in $Path1 should reflect some kind of host 
       detail that will allow you to identify where the log came from. This is to battle reused hostname's on these windows machines.
