@@ -23,23 +23,16 @@
     SHA256DEEP.EXE (http://md5deep.sourceforge.net), which are not
     required, but very useful for snapshots.  Be aware, though, that
     producing thousands of file hashes may require a long time.  
-
-.PARAMETER OutputParentFolder
-    Optional path to the parent folder under which a new subfolder will
-    be created to hold the snapshot files.  This is not the path to
-    the output folder itself, which will be automatically created, but
-    to its parent folder.  Defaults to $PWD, the present directory.
-    Write access permission is required to the output folder.
-
-.PARAMETER TextFileOutput
-    Forces all output files to be flat TXT files instead of XML.
-
-.PARAMETER Verbose
-    Show progress information as the script is running.
-
-
-Requires -Version 3.0  
+    
 ##############################################################################>
+
+$Title = '
+___       ______       _________                           ________                   __________             
+__ |     / /__(_)____________  /________      _________    ___  __ )_____ _______________  /__(_)___________ 
+__ | /| / /__  /__  __ \  __  /_  __ \_ | /| / /_  ___/    __  __  |  __ `/_  ___/  _ \_  /__  /__  __ \  _ \
+__ |/ |/ / _  / _  / / / /_/ / / /_/ /_ |/ |/ /_(__  )     _  /_/ // /_/ /_(__  )/  __/  / _  / _  / / /  __/
+____/|__/  /_/  /_/ /_/\__,_/  \____/____/|__/ /____/      /_____/ \__,_/ /____/ \___//_/  /_/  /_/ /_/\___/                                                                                          
+'
 
 [CmdletBinding()]
 Param ([String] $OutputParentFolder = ($Pwd.Path), [Switch] $TextFileOutput) 
