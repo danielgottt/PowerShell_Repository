@@ -50,25 +50,6 @@ ____/|__/  /_/  /_/ /_/\__,_/  \____/____/|__/ /____/      /_____/ \__,_/ /____/
 '
 
 ###############################################################################
-#
-# Create README.TXT file to identify this computer and snapshot.
-# More text will be appended to the end of this file later in this script.
-#
-###############################################################################
-
-$ReadmeText = @"
-*SYSTEM CONFIGURATION SNAPSHOT
-*Computer: $env:COMPUTERNAME
-*HostName: $(hostname.exe)
-*Box-Date: $(Get-Date -Format 'F')
-*UTC-Date: $(Get-Date -Format 'U') 
-*ZuluDate: $(Get-Date -Format 'u')
-*PVersion: $($PSVersionTable.PSVersion.ToString())
-*UserName: $env:USERNAME 
-*User-Dom: $env:USERDOMAIN
-"@
-
-###############################################################################
 # 
 # Set Variables
 #
@@ -79,8 +60,7 @@ $SCANDIR = "C:\"
 ###############################################################################
 # 
 # Now run whatever commands you wish to capture operational state data.
-# Please add more commands and use additional tools too, always piping
-# the output of any command into the WriteOut function (defined above).
+# Please add more commands and use additional tools too.
 #
 ###############################################################################
 
@@ -170,6 +150,7 @@ Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\RunServicesOn
 Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce\ -ErrorAction SilentlyContinue  >> Service_Control_HKEY_Baseline.txt
 Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\RunServices\  -ErrorAction SilentlyContinue >> Service_Control_HKEY_Baseline.txt
 Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\RunServices\ -ErrorAction SilentlyContinue  >> Service_Control_HKEY_Baseline.txt
+
 
 # Generate an MSINFO32.EXE report, which includes lots of misc info.
 Write-Verbose -Message "Writing to MSINFO32-Report.txt" 
