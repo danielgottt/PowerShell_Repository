@@ -24,7 +24,19 @@
     required, but very useful for snapshots.  Be aware, though, that
     producing thousands of file hashes may require a long time.  
     
-##############################################################################>
+###############################################################################
+#                    These variables do not need to be adjusted
+###############################################################################
+
+#SET DATE
+$DATE_PATH = Get-Date -format "yyyy-MM-dd"
+$DATE_FULL = Get-Date
+$DATE_DAY = Get-Date -format "dd"
+$DATE_MONTH = Get-Date -format "MM"
+$DATE_YEAR = Get-Date -format "yyyy"
+$DATE =  "$DATE_YEAR-$DATE_MONTH-$DATE_DAY"
+$DATECUT =  $DATE_FULL.ToShortDateString()
+
 
 $Title = '
 ___       ______       _________                           ________                   __________             
@@ -53,6 +65,13 @@ $ReadmeText = @"
 *User-Dom: $env:USERDOMAIN
 "@
 
+###############################################################################
+# 
+# Set Variables
+#
+###############################################################################
+
+$SCANDIR = "C:\"
 
 ###############################################################################
 # 
@@ -122,7 +141,7 @@ Get-NetIPsecRule >> Firewall_Settings.txt
 
 
 # Processes
-Get-Process -FileVersionInfo -IncludeUserName -Id -ErrorAction Ignore | Out-File -Verbose -FilePath ./Processes.txt
+Get-CimInstance -Class Win32_Process | select-object ProcessName,ProcessId,parentProcessID,CreationDate,executablePath,CommandLine > Processes.txt
 
 # Drivers
 Get-CimInstance -ClassName Win32_SystemDriver > System_Drivers.txt
@@ -153,6 +172,8 @@ Get-ItemProperty HKCU:\Software\Microsoft\Windows\CurrentVersion\RunServices\ 
 Write-Verbose -Message "Writing to MSINFO32-Report.txt" 
 msinfo32.exe /report MSINFO32-Report.txt
 
+# Gather .exe files created w/in the last 24 hours, and dump to CSV
+Get-ChildItem -path $SCANDIR -Recurse -force -file | where-object {($_.extension -eq ".exe") -and ($_.CreationTime -gt (get-date).AddDays(-1))} > 24hrEXE.txt
 
 # Hidden Files and Folders 
 dir -Path c:\ -Hidden -Recurse -ErrorAction SilentlyContinue | Select-Object FullName,Length,Mode,CreationTime,LastAccessTime,LastWriteTime > Hidden_Files_and_Folders.txt
