@@ -41,31 +41,16 @@ $DATE_DAY = Get-Date -format "dd"
 $ZULU_TIME = Get-Date -Format 'u'
 $DATE_MONTH = Get-Date -format "MM"
 $DATE_YEAR = Get-Date -format "yyyy"
-
+$HOSTNAME = (Get-WmiObject Win32_BIOS).SerialNumber
 
 ###############################################################################
 # 
 # Set Adjustable Variables
 #
 ###############################################################################
-#$HOSTNAME = (Get-WmiObject Win32_BIOS).SerialNumber (Verify)
 $SCANDIR = "C:\"
 $USER = $env:USERNAME
 
-#Validates User inputs valid PDCU S/N
-Function Validate {
-Param(
-[Parameter(Mandatory=$true)]
-[ValidateNotNullOrEmpty()]
-[ValidateSet("T1255574", "T1255578", "T1255595", "T1255608", "T1255635", "T1255576", "T1255631", "T1255586", "T1255643", "T1255596", "T1255552", "T1255264", "T1255636", "T1255624")]
-[String[]]$HOSTNAME
-)
-}
-$HOSTNAME = Read-Host "Please enter PDCU S/N Including the T"
-Echo "Will Error out if Hostname doesnt match the List"
-Validate $HOSTNAME
-
-Write-Host " "
 Write-Host "You are Auditing '$HOSTNAME' on '$ZULU_TIME'"
 #Creation of Script Working directory, All variables should be identified prior to this step
 $dirName = "c:\temp\'$HOSTNAME'_{0}" -f (get-date).ToString("dd-MM-yyyy-hh-mm")
@@ -91,7 +76,7 @@ Get-CimInstance -ClassName Win32_BIOS | Out-File -Append Computer_System.txt
 
 
 # Users (Identifies Local Users on a machine)
-Get-LocalUser –name * | Select Name, Enabled, SID, LastLogon, PasswordLastSet | Out-File Local_Users.txt
+Get-LocalUser â€“name * | Select Name, Enabled, SID, LastLogon, PasswordLastSet | Out-File Local_Users.txt
 
 # Groups
 Get-CimInstance -ClassName Win32_Group | Out-File Account_Information.txt
@@ -161,7 +146,7 @@ Get-Service | Sort-Object Status | Format-List -Property Status, Name, DisplayNa
 
 
 # Registry Exports (add more as you wish)
-Get-ItemProperty?HKLM:\SYSTEM\CurrentControlSet\Enum\USBSTOR\*\* | Format-Table –Property FriendlyName, ContainerID | Out-File Registry_Baseline.txt
+Get-ItemProperty?HKLM:\SYSTEM\CurrentControlSet\Enum\USBSTOR\*\* | Format-Table â€“Property FriendlyName, ContainerID | Out-File Registry_Baseline.txt
 Get-ItemProperty?HKLM:\Software\Microsoft\Windows\CurrentVersion\Run\? | Out-File -Append Registry_Baseline.txt
 Get-ItemProperty?HKLM:\Software\Microsoft\Windows\CurrentVersion\RunOnce\? | Out-File -Append Registry_Baseline.txt
 Get-ItemProperty?HKCU:\Software\Microsoft\Windows\CurrentVersion\RunOnce\? | Out-File -Append Registry_Baseline.txt 
