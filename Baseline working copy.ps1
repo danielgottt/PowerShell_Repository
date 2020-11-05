@@ -51,7 +51,7 @@ $HOSTNAME = (Get-WmiObject Win32_BIOS).SerialNumber
 $SCANDIR = "C:\"
 $USER = $env:USERNAME
 
-Write-Host "You are Auditing '$HOSTNAME' on '$ZULU_TIME'"
+Write-Host "You are Auditing '$HOSTNAME' on '$ZULU_TIME' as '$USER'"
 #Creation of Script Working directory, All variables should be identified prior to this step
 $dirName = "c:\temp\'$HOSTNAME'_{0}" -f (get-date).ToString("dd-MM-yyyy-hh-mm")
 md $dirName
