@@ -19,6 +19,11 @@
     SHA256DEEP.EXE (http://md5deep.sourceforge.net), which are not
     required, but very useful for snapshots.  Be aware, though, that
     producing thousands of file hashes may require a long time.  
+    
+.TRAIL_HEADS
+    Pulling service info
+
+
 #>############################################################################# 
 
 $Title = '
