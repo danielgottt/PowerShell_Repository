@@ -184,7 +184,7 @@ dir -Path c:\ -Hidden -Recurse -ErrorAction SilentlyContinue | Select-Object Ful
 dir -Path c:\ -Recurse -ErrorAction SilentlyContinue | Select-Object FullName,Length,Mode,CreationTime,LastAccessTime,LastWriteTime | Out-File Non_Hidden_Files_and_Folders.txt
 
 #Pull Important Hashes
-Get-FileHash -Algorithm SHA1 -Path C:\PDCU_Startup\* > Startup_Hash.txt
+Get-FileHash -Algorithm SHA1 -Path C:\XXXX\* > Startup_Hash.txt
 
 # Save hashes and full paths to the snapshot files to a CSV:
 # if (Get-Command -Name Get-FileHash -ErrorAction SilentlyContinue)
